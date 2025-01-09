@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Clocks</title>
+    <style>
+
+	.logo {
+    		display: block;          /* Ensures the image is treated as a block-level element */
+    		margin: 0;     /* Centers the image and adds space below it */
+    		max-width: 2000px;        /* Set maximum width to make the image responsive */
+    		height: auto;            /* Maintains the image's aspect ratio */
+		padding: 0;
+	      }
+
+        body p {
+            background-color: #000; /* Black background */
+	    font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+	    padding: 0;
+            
+            overflow-x: hidden; /* Prevent body horizontal scroll */
+        }
+        .clock-container  {
+	    background-color: #000;            
+	    display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: nowrap; /* Prevent wrapping to a new row */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+            padding: 20px;
+        }
+        .clock {
+            background: #000; /* Black background */
+            border: 1px solid #01716E; /* Royal neon blue */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(1, 113, 110, 0.9); /* cyan blue glow */
+            width: 150px; /* Fixed width */
+            height: 120px; /* Fixed height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .clock h2 {
+            margin: 0 0 10px;
+            font-size: 16px; /* Smaller font */
+            color: #01716E; /* Royal neon blue text */
+        }
+        .clock .time {
+            font-size: 20px; /* Smaller font */
+            color: #01716E; /* Royal neon blue text */
+        }
+    </style>
+</head>
+<body>
+<img src="worldMap.png" alt="Logo" class="logo">
+
+    <div class="clock-container">
+        <div class="clock">
+            <h2>West Chester (EST)</h2>
+            <div class="time" id="newYork"></div>
+        </div>
+        <div class="clock">
+            <h2>Lakeside (CST)</h2>
+            <div class="time" id="dallas"></div>
+        </div>
+        <div class="clock">
+            <h2>Phoenix (MST)</h2>
+            <div class="time" id="phoenix"></div>
+        </div>
+        <div class="clock">
+            <h2>Portland (PST)</h2>
+            <div class="time" id="portland"></div>
+        </div>
+        <div class="clock">
+            <h2>United Kingdom (GMT)</h2>
+            <div class="time" id="london"></div>
+        </div>
+        <div class="clock">
+            <h2>Melbourne (AEDT)</h2>
+            <div class="time" id="melbourne"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock(id, offset) {
+            const now = new Date();
+            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+            const localTime = new Date(utc + offset * 3600000);
+            document.getElementById(id).innerText = localTime.toLocaleTimeString();
+        }
+
+        function updateClocks() {
+            updateClock('newYork', -5);    // EST (UTC-5)
+            updateClock('dallas', -6);    // CST (UTC-6)
+            updateClock('phoenix', -7);   // MST (UTC-7)
+            updateClock('portland', -8);  // PST (UTC-8)
+            updateClock('london', 0);     // GMT (UTC+0)
+            updateClock('melbourne', 11); // AEDT (UTC+11)
+        }
+
+        setInterval(updateClocks, 1000);
+        updateClocks(); // Initial call
+    </script>
+</body>
+</html>
