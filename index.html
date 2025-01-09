@@ -9,10 +9,11 @@
 
 	.logo {
     		display: block;          /* Ensures the image is treated as a block-level element */
-    		margin: 0;     /* Centers the image and adds space below it */
-    		max-width: 1000px;        /* Set maximum width to make the image responsive */
+    		margin: 0 auto 0px;        	/* Centers the image and adds space below it */
+    		max-width: 2000px;        /* Set maximum width to make the image responsive */
     		height: auto;            /* Maintains the image's aspect ratio */
 		padding: 0;
+		background-color: #000;
 	      }
 
         body p {
@@ -40,13 +41,13 @@
         }
         .clock {
             background: #000; /* Black background */
-            border: 1px solid #01716E; /* Royal neon blue */
-            border-radius: 10px;
-            padding: 20px;
+            border: 2px solid #01716E; /* Royal neon blue */
+            border-radius: 8px;
+            padding: 5px;
             text-align: center;
             box-shadow: 0px 0px 10px rgba(1, 113, 110, 0.9); /* cyan blue glow */
-            width: 150px; /* Fixed width */
-            height: 120px; /* Fixed height */
+            width: 130px; /* Fixed width */
+            height: 80px; /* Fixed height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -54,17 +55,17 @@
         }
         .clock h2 {
             margin: 0 0 5px;
-            font-size: 16px; /* Smaller font */
+            font-size: 14px; /* Smaller font */
             color: #01716E; /* Royal neon blue text */
         }
         .clock .time {
-            font-size: 20px; /* Smaller font */
+            font-size: 16px; /* Smaller font */
             color: #01716E; /* Royal neon blue text */
         }
     </style>
 </head>
 <body>
-<img src="worldMap.png" alt="Logo" class="logo">
+<img src="worldMap.png" alt="Logo" class="logo" width = "1000">
 
     <div class="clock-container">
         <div class="clock">
