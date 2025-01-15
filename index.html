@@ -119,27 +119,27 @@
 
     <script>
         function updateClock(id, offset, timeZone) {
-    const now = new Date();
-    const options = {
-        timeZone: timeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-    };
-    const timeString = now.toLocaleTimeString('en-GB', options);
-    document.getElementById(id).innerText = timeString;
-}
+            const now = new Date();
+            const options = {
+                timeZone: timeZone,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            const timeString = now.toLocaleTimeString('en-GB', options);
+            document.getElementById(id).innerText = timeString;
+        }
 
-function updateClocks() {
-    updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
-    updateClock('dallas', -6, 'America/Chicago');     // CST (UTC-6)
-    updateClock('phoenix', -7, 'America/Phoenix');    // MST (UTC-7)
-    updateClock('portland', -8, 'America/Los_Angeles');  // PST (UTC-8)
-    updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
-    updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
-    updateClock('melbourne', 11, 'Australia/Melbourne'); // AEDT (UTC+11)
-}
+        function updateClocks() {
+            updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
+            updateClock('dallas', -6, 'America/Chicago');     // CST (UTC-6)
+            updateClock('phoenix', -7, 'America/Phoenix');    // MST (UTC-7)
+            updateClock('portland', -8, 'America/Los_Angeles');  // PST (UTC-8)
+            updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
+            updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
+            updateClock('melbourne', 11, 'Australia/Melbourne'); // AEDT (UTC+11)
+        }
 
         setInterval(updateClocks, 1000);
         updateClocks(); // Initial call
