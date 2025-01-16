@@ -133,10 +133,11 @@
         }
 
         function updateClocks() {
-            updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
-            updateClock('dallas', -6, 'America/Chicago');     // CST (UTC-6)
-            updateClock('phoenix', -7, 'America/Phoenix');    // MST (UTC-7)
+            
             updateClock('portland', -8, 'America/Los_Angeles');  // PST (UTC-8)
+            updateClock('phoenix', -7, 'America/Phoenix');    // MST (UTC-7)
+            updateClock('dallas', -6, 'America/Chicago');     // CST (UTC-6)
+            updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
             updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
             updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
             updateClock('melbourne', 11, 'Australia/Melbourne'); // AEDT (UTC+11)
