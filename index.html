@@ -84,7 +84,7 @@
 </head>
 
 <body>
-    <img src="worldMap.png" alt="Logo" class="logo" width="1000">
+    <img src="WorldPins.png" alt="Logo" class="logo" width="1000">
 
     <div class="clock-container">
        
@@ -112,10 +112,7 @@
             <h2>Germany (CET)</h2>
             <div class="time" id="germany"></div>
         </div>
-        <div class="clock">
-            <h2>Melbourne (AEDT)</h2>
-            <div class="time" id="melbourne"></div>
-        </div>
+       
     </div>
 
     <script>
@@ -140,7 +137,7 @@
             updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
             updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
             updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
-            updateClock('melbourne', 11, 'Australia/Melbourne'); // AEDT (UTC+11)
+  
         }
 
         setInterval(updateClocks, 1000);
