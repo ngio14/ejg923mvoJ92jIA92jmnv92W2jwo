@@ -112,6 +112,11 @@
             <h2>Germany (CET)</h2>
             <div class="time" id="germany"></div>
         </div>
+        <div class="clock">
+            <h2>Sydney (AEST)</h2>
+            <div class="time" id="sydney"></div>
+        </div>
+        
        
     </div>
 
@@ -137,7 +142,7 @@
             updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
             updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
             updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
-  
+            updateClock('sydney', 10, 'Australia/Sydney');    // AEST (UTC+10)
         }
 
         setInterval(updateClocks, 1000);
