@@ -1,55 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Zone Clocks</title>
     <style>
-        /* Resetting default styles and ensuring full height */
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            min-height: 100%;
             background-color: #000;
             font-family: Arial, sans-serif;
         }
 
-        /* Styling for logo image */
-        .logo {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto;
-            background-color: #000;
-            padding: 0;
-        }
-
-        /* Styling for the clock container */
-        .clock-container {
+        body {
             display: flex;
-            flex-wrap: wrap;  /* Allow clocks to wrap if the screen is too small */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
-            overflow: hidden;  /* Disable horizontal scrolling */
-            width: 100%; /* Ensure it takes up the full width of the container */
+            min-height: 100vh;
         }
 
-        /* Styling for individual clocks */
+        .logo {
+            display: block;
+            width: 100%;
+            max-width: 1000px;   /* scales down on small screens */
+            height: auto;
+        }
+
+        .clock-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         .clock {
             background: #000;
-            border: 2px solid #01716E; /* Royal neon blue */
+            border: 2px solid #01716E;
             border-radius: 8px;
             padding: 5px;
             text-align: center;
-            box-shadow: 0px 0px 10px rgba(1, 113, 110, 0.9); /* cyan blue glow */
-            width: 120px;  /* Adjust width to be more responsive */
+            box-shadow: 0 0 10px rgba(1, 113, 110, 0.9);
+            width: 120px;
             height: 80px;
             display: flex;
             flex-direction: column;
@@ -57,97 +53,78 @@
             align-items: center;
         }
 
-        /* Clock header styling */
         .clock h2 {
             margin: 0 0 4px;
             font-size: 12px;
-            color: #01716E; /* Royal neon blue text */
-        }
-
-        /* Clock time styling */
-        .clock .time {
-            font-size: 16px;
             color: #01716E;
         }
 
-        /* Responsive design for smaller screens */
+        .clock .time {
+            font-size: 16px;
+            color: #01716E;
+            font-variant-numeric: tabular-nums;
+        }
+
         @media (max-width: 768px) {
-            .clock-container {
-                flex-direction: column;  /* Stack clocks vertically on smaller screens */
-            }
-            .clock {
-                width: 100px;  /* Adjust width for smaller screens */
-                height: 70px;
-            }
+            .clock { width: 100px; height: 70px; }
         }
     </style>
 </head>
 
 <body>
-    <img src="WorldPins.png" alt="Logo" class="logo" width="1000">
+    <img src="worldMap.png" alt="World map with office locations" class="logo">
 
-    <div class="clock-container">
-       
-        <div class="clock">
-            <h2>Portland (PST)</h2>
-            <div class="time" id="portland"></div>
-        </div>
-         <div class="clock">
-            <h2>Phoenix (MST)</h2>
-            <div class="time" id="phoenix"></div>
-        </div>
-         <div class="clock">
-            <h2>Lakeside (CST)</h2>
-            <div class="time" id="dallas"></div>
-        </div>
-        <div class="clock">
-            <h2>West Chester (EST)</h2>
-            <div class="time" id="newYork"></div>
-        </div>
-        <div class="clock">
-            <h2>United Kingdom (GMT)</h2>
-            <div class="time" id="london"></div>
-        </div>
-         <div class="clock">
-            <h2>Germany (CET)</h2>
-            <div class="time" id="germany"></div>
-        </div>
-        <div class="clock">
-            <h2>Sydney, Australia (AEST)</h2>
-            <div class="time" id="sydney"></div>
-        </div>
-        
-       
-    </div>
+    <div class="clock-container" id="clocks"></div>
 
     <script>
-        function updateClock(id, offset, timeZone) {
-            const now = new Date();
-            const options = {
-                timeZone: timeZone,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            };
-            const timeString = now.toLocaleTimeString('en-GB', options);
-            document.getElementById(id).innerText = timeString;
+        // Add, remove, or reorder sites here. labelLocale only controls how the
+        // zone abbreviation is written (PDT, BST, CEST, AEST...).
+        const CLOCKS = [
+            { name: 'Portland',          tz: 'America/Los_Angeles', labelLocale: 'en-US' },
+            { name: 'Phoenix',           tz: 'America/Phoenix',     labelLocale: 'en-US' },
+            { name: 'Lakeside',          tz: 'America/Chicago',     labelLocale: 'en-US' },
+            { name: 'West Chester',      tz: 'America/New_York',    labelLocale: 'en-US' },
+            { name: 'United Kingdom',    tz: 'Europe/London',       labelLocale: 'en-GB' },
+            { name: 'Germany',           tz: 'Europe/Berlin',       labelLocale: 'en-GB' },
+            { name: 'Sydney, Australia', tz: 'Australia/Sydney',    labelLocale: 'en-AU' },
+        ];
+
+        const container = document.getElementById('clocks');
+
+        // Build the clock elements once
+        CLOCKS.forEach(c => {
+            const box = document.createElement('div');
+            box.className = 'clock';
+            box.innerHTML = '<h2></h2><div class="time"></div>';
+            container.appendChild(box);
+            c.title = box.querySelector('h2');
+            c.display = box.querySelector('.time');
+        });
+
+        function zoneAbbreviation(date, tz, locale) {
+            const parts = new Intl.DateTimeFormat(locale, {
+                timeZone: tz,
+                timeZoneName: 'short'
+            }).formatToParts(date);
+            return parts.find(p => p.type === 'timeZoneName').value;
         }
 
         function updateClocks() {
-            
-            updateClock('portland', -8, 'America/Los_Angeles');  // PST (UTC-8)
-            updateClock('phoenix', -7, 'America/Phoenix');    // MST (UTC-7)
-            updateClock('dallas', -6, 'America/Chicago');     // CST (UTC-6)
-            updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
-            updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
-            updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
-            updateClock('sydney', 10, 'Australia/Sydney');    // AEST (UTC+10)
+            const now = new Date();
+            CLOCKS.forEach(c => {
+                c.display.textContent = now.toLocaleTimeString('en-GB', {
+                    timeZone: c.tz,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+                c.title.textContent = `${c.name} (${zoneAbbreviation(now, c.tz, c.labelLocale)})`;
+            });
         }
 
+        updateClocks();
         setInterval(updateClocks, 1000);
-        updateClocks(); // Initial call
     </script>
 </body>
-
 </html>
