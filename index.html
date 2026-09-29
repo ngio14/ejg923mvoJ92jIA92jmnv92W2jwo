@@ -35,8 +35,8 @@
             flex-wrap: wrap;  /* Allow clocks to wrap if the screen is too small */
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 15px;
+            padding: 15px;
             overflow: hidden;  /* Disable horizontal scrolling */
             width: 100%; /* Ensure it takes up the full width of the container */
         }
@@ -113,8 +113,8 @@
             <div class="time" id="germany"></div>
         </div>
         <div class="clock">
-            <h2>Sydney (AEST)</h2>
-            <div class="time" id="melbourne"></div>
+            <h2>Sydney. Australia (AEST)</h2>
+            <div class="time" id="sydney"></div>
         </div>
         
        
@@ -142,7 +142,7 @@
             updateClock('newYork', -5, 'America/New_York');    // EST (UTC-5)
             updateClock('london', 0, 'Europe/London');        // GMT (UTC+0)
             updateClock('germany', 1, 'Europe/Berlin');       // CET (Europe/Berlin will account for daylight saving time)
-            updateClock('melbourne', 10, 'Australia/Melbourne');    // AEST (UTC+10)
+            updateClock('sydney', 10, 'Australia/Sydney');    // AEST (UTC+10)
         }
 
         setInterval(updateClocks, 1000);
