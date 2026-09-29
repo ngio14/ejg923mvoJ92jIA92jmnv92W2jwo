@@ -34,13 +34,16 @@
     padding: 15px; width: 100%; box-sizing: border-box;
   }
   .clock {
-    background: #000; border: 2px solid var(--teal); border-radius: 8px; padding: 5px;
-    text-align: center; box-shadow: 0 0 10px rgba(1,113,110,0.9);
+    background: rgba(1,113,110,0.14);            /* same dark-teal fill as the land */
+    border: 1.5px solid #0a9a95;                 /* same bright outline as the coastlines */
+    border-radius: 8px; padding: 5px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(1,113,110,0.9);     /* same glow as the map */
     width: 120px; height: 80px;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
   }
-  .clock h2 { margin: 0 0 4px; font-size: 12px; color: var(--teal); }
-  .clock .time { font-size: 16px; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .clock h2 { margin: 0 0 4px; font-size: 12px; color: #0a9a95; }
+  .clock .time { font-size: 16px; color: #0a9a95; font-variant-numeric: tabular-nums; }
   @media (max-width: 768px) { .clock { width: 100px; height: 70px; } }
 </style>
 </head>
